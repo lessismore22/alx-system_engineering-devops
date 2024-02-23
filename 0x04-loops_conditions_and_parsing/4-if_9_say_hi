@@ -5,7 +5,7 @@ count=0
 
 while [ $counter -lt 10 ]
 do
-	echo "Best School"
-	((counter++))
+        echo "Best School"
+        ((counter++))
 done
-	
+
