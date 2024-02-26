@@ -4,4 +4,4 @@
 
 
 
-echo "My PID is $$"
+echo $$
