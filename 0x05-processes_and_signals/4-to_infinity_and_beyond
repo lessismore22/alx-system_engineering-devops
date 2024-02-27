@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 # Displays 'To infinity and beyond' indefinitely
 #for (( ; ; ))
-do
-	if [ ctrl_c() ]; then
-		break
-	fi
-
-	sleep 2
+while true ; do
+    echo "To infinity and beyond"
+    sleep 2
 done
 
