@@ -4,19 +4,17 @@
 #'good luck' for the 8th loop iteration
 #'best school' for other iterations 
 
-count=0
+count=1
 
 while [ $count -le 10]
 do
-	if [$1 -eq 4 ]
-	then
+	if [$count -eq 4 ]; then
 		echo "bad luck"
-	elif [$count -eq 8 ]
-	then
+	elif [$count -eq 8 ]; then
 		echo "good luck"
 	else
 		echo "Best School"
 	fi
 	((count++))
-	done
+done
 
