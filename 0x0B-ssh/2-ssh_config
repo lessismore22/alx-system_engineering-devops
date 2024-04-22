@@ -1,0 +1,9 @@
+#configure ssh client so that you can connect to a server without typing a password
+    
+        Host 530485-web-01
+            34.227.101.88
+            IdentityFile ~/.ssh/school
+            GSSAPIAuthentication yes
+            GSSAPIDelegateCredentials no
+            PasswordAuthentication no
+
