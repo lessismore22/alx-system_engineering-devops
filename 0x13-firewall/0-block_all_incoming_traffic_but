@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #this is a file showing the commands used in setting up the firewall on specific ports on my server
 sudo apt-get -y update
 sudo apt install ufw
