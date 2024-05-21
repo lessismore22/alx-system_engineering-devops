@@ -17,7 +17,7 @@ if __name__ == '__main__':
     tasks = response.json()
 
     with open('{}.csv'.format(employee_id), 'w') as file:
+        csv_file = csv.writer(file, quoting=csv.QUOTE_ALL)
         for task in tasks:
-            file.writerow('[{}, {}, {}, {}, {}]'
-                       .format(employee_id, username, task.get('completed'),
-                               task.get('title')))
+            csv_file.writerow([employee_id, username,
+                task.get('completed'), task.get('title')])
