@@ -1,21 +1,20 @@
 #!/usr/bin/python3
-""" Accessing a REST API for a todo list of employees
-
-"""
+""" Accessing a REST API for a todo list of employees"""
 
 import requests
 import sys
 
+
 if __name__ == '__main__':
-    employeeId = sys.argv[1]
-    baseUrl = "https://jsonplaceholder.typicode.com/users"
-    url = baseurl + "/" + employeeId
+    employeeId = int(sys.argv[1])
+    baseUrl = "https://jsonplaceholder.typicode.com"
+    url = baseurl + "/users/" + employeeId
 
 
     response = requests.get(url)
     employeeName = response.json().get('name')
 
-    todoUrl = url + "/todos"
+    todoUrl = baseurl + "/todos?userId=" + employeeId
     response = requests.get(todoUrl)
     tasks = response.json()
     done = 0
