@@ -12,13 +12,12 @@ if __name__ == '__main__':
     response = requests.get(url)
     username = response.json().get('username')
 
-    todo_url = f'{url}/todos?userId={employee_id}'
+    todo_url = f'{base_url}/todos?userId={employee_id}'
     response = requests.get(todo_url)
     tasks = response.json()
 
-
     with open('{}.csv'.format(employee_id), 'w') as file:
         for task in tasks:
-            file.write('{}, {}, {}, {}, {}\n'
+            file.writerow('[{}, {}, {}, {}, {}]'
                        .format(employee_id, username, task.get('completed'),
                                task.get('title')))
