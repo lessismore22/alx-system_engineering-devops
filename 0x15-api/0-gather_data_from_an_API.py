@@ -8,12 +8,12 @@ import sys
 if __name__ == '__main__':
     employee_id = int(sys.argv[1])
     baseurl = "https://jsonplaceholder.typicode.com"
-    url = baseurl + "/users/" + employee_id
+    url = f'{baseurl}/users/{employee_id}'
 
     response = requests.get(url)
     employee_name = response.json().get('name')
 
-    todo_url = baseurl + "/todos?userId=" + employee_id
+    todo_url = f'{baseurl}/todos?userId={employee_id}'
     response = requests.get(todo_url)
     tasks = response.json()
     done = 0
