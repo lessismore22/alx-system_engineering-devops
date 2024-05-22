@@ -1,29 +1,40 @@
 #!/usr/bin/python3
-"""Accessing a REST API for todo lists of employees"""
-
+"""
+Accessing a REST API for todo lists of employees """
 import json
 import requests
 import sys
 
 
-if __name__ == '__main__':
-    employeeId = sys.argv[1]
-    baseUrl = "https://jsonplaceholder.typicode.com/users"
-    url = baseUrl + "/" + employeeId
+def get_user_name(id) -> str:
+    """fetch username"""
+    uri = f"https://jsonplaceholder.typicode.com/users/{id}"
+    name = requests.get(uri).json().get("username")
+    return name
 
-    response = requests.get(url)
-    username = response.json().get('username')
 
-    todoUrl = url + "/todos"
-    response = requests.get(todoUrl)
-    tasks = response.json()
+def main():
+    """main fun"""
+    url_for_all_todos = 'https://jsonplaceholder.typicode.com/todos/'
+    user_id = int(sys.argv[1])
+    userName = get_user_name(user_id)
 
-    dictionary = {employeeId:[]}
-    for task in tasks:
-        dictionary[employeeId].append({
-            "task": task.get('title'),
-            "completed": task.get('completed')
-            "username": username
-            })
-    with open('{}.json'.format(employeeId), 'w') as filename:
-        json.dump(dictionary, filename)
+    all_todos = requests.get(url_for_all_todos).json()
+    user_todos = [i for i in all_todos if i.get("userId") == user_id]
+
+    todos = []
+
+    for todo in user_todos:
+        obj = {"task": f'{todo.get("title")}', "completed":
+               todo.get("completed"), "username": userName}
+        todos.append(obj)
+
+    data = {f"{user_id}": todos}
+    dt = json.dumps(data)
+
+    with open(f"{user_id}.json", "w") as f:
+        f.write(dt)
+
+
+if __name__ == "__main__":
+    main()
