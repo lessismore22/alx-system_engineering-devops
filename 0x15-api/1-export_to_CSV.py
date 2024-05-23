@@ -4,20 +4,29 @@
 import requests
 import sys
 
-if __name__ == '__main__':
-    employee_id = int(sys.argv[1])
-    base_url = "https://jsonplaceholder.typicode.com/users"
-    url = f'{base_url}/users/{employee_id}'
 
-    response = requests.get(url)
-    username = response.json().get('username')
+def get_user_name(id) -> str:
+    """fetch username"""
+    uri = f"https://jsonplaceholder.typicode.com/users/{id}"
+    name = requests.get(uri).json().get("username")
+    return name
 
-    todo_url = f'{base_url}/todos?userId={employee_id}'
-    response = requests.get(todo_url)
-    tasks = response.json()
 
-    with open('{}.csv'.format(employee_id), 'w') as file:
-        csv_file = csv.writer(file, quoting=csv.QUOTE_ALL)
-        for task in tasks:
-            csv_file.writerow([employee_id, username,
-                task.get('completed'), task.get('title')])
+def main():
+    """main func"""
+    url_for_all_todos = 'https://jsonplaceholder.typicode.com/todos/'
+    user_id = int(sys.argv[1])
+    userName = get_user_name(user_id)
+
+    all_todos = requests.get(url_for_all_todos).json()
+    user_todos = [i for i in all_todos if i.get("userId") == user_id]
+
+    with open(f"{user_id}.csv", "w") as f:
+        for todo in user_todos:
+            strr = '"{}","{}","{}","{}"'.format(
+                user_id, userName, todo.get("completed"), todo.get("title"))
+            f.write(strr + '\n')
+
+
+if __name__ == "__main__":
+    main()
